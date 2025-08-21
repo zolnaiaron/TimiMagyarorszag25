@@ -17,8 +17,38 @@
       <li><a href="mitvigyek.html">Mit vigyek magammal?</a></li>
       <li><a href="mitfogunk.html">Mit fogunk csinálni?</a></li>
     </ul>
+
+    <!-- Visszaszámláló -->
+    <div class="countdown" id="countdown"></div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Script (visszaszámláló logika) -->
+  <script>
+    // Cél időpont (példa: Szilveszter éjfél)
+    const targetDate = new Date("2025-08-25T10:00:00").getTime();
+
+    const countdownElement = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        countdownElement.innerHTML = "Lejárt!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = 
+        `${days} nap ${hours} óra ${minutes} perc ${seconds} mp`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
