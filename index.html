@@ -1,54 +1,220 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Áron blogja</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áron blogja</title>
+    <style>
+        /* A teljes háttér konténer, ami tartja a két képet */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* A két háttérkép-tartó div, amik mozognak és váltanak */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            opacity: 0; /* Alapból mindkettő láthatatlan */
+            transition: opacity 1.5s ease-in-out; /* Simán átúsztatjuk a képeket */
+            will-change: opacity, transform; /* Kicsi teljesítményjavítás */
+        }
+        
+        /* A jelenleg látható háttérkép */
+        .background-image.active {
+            opacity: 1;
+        }
+
+        /* Sötét overlay a jobb kontrasztért */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5); /* félátlátszó fekete */
+            z-index: 1;
+        }
+
+        /* Tartalom */
+        .content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff; /* fehér szöveg */
+            padding: 20px;
+        }
+
+        .content h1 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+        }
+
+        /* Lista */
+        .content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content li {
+            margin: 15px 0;
+        }
+
+        /* Linkek */
+        .content a {
+            display: inline-block;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.486); /* sötét háttér a linknek */
+            padding: 12px 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .content a:hover {
+            background: rgba(0,0,0,0.8);
+            transform: scale(1.05);
+        }
+
+        .content a:active {
+            transform: scale(0.95);
+            background: rgba(0,0,0,0.9);
+        }
+
+        /* Mobil optimalizálás */
+        @media (max-width: 480px) {
+            .content h1 {
+                font-size: 1.5rem;
+            }
+
+            .content a {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="background"></div>
-  <div class="overlay"></div>
+    <div class="background-container">
+        <div id="bg1" class="background-image"></div>
+        <div id="bg2" class="background-image"></div>
+    </div>
+    <div class="overlay"></div>
 
-  <div class="content">
-    <h1>Üdv a blogomon!</h1>
-    <ul>
-      <li><a href="utazas.html">Utazás Magyarországra, miként és hogyan?</a></li>
-      <li><a href="mitvigyek.html">Mit vigyek magammal?</a></li>
-      <li><a href="mitfogunk.html">Mit fogunk csinálni?</a></li>
-    </ul>
+    <div class="content">
+        <h1>Üdv a blogomon!</h1>
+        <ul>
+            <li><a href="utazas.html">Utazás Magyarországra, miként és hogyan?</a></li>
+            <li><a href="mitvigyek.html">Mit vigyek magammal?</a></li>
+            <li><a href="mitfogunk.html">Mit fogunk csinálni?</a></li>
+        </ul>
 
-    <!-- Visszaszámláló -->
-    <div class="countdown" id="countdown"></div>
-  </div>
+        <!-- Visszaszámláló -->
+        <div class="countdown" id="countdown"></div>
+    </div>
 
-  <!-- Script (visszaszámláló logika) -->
-  <script>
-    // Cél időpont (példa: Szilveszter éjfél)
-    const targetDate = new Date("2025-08-25T10:00:00").getTime();
+    <script>
+        // Cél időpont (példa: Szilveszter éjfél)
+        const targetDate = new Date("2025-08-25T10:00:00").getTime();
 
-    const countdownElement = document.getElementById("countdown");
+        const countdownElement = document.getElementById("countdown");
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-      if (distance <= 0) {
-        countdownElement.innerHTML = "Lejárt!";
-        return;
-      }
+            if (distance <= 0) {
+                countdownElement.innerHTML = "Lejárt!";
+                return;
+            }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      countdownElement.innerHTML = 
-        `${days} nap ${hours} óra ${minutes} perc ${seconds} mp`;
-    }
+            countdownElement.innerHTML = 
+                `${days} nap ${hours} óra ${minutes} perc ${seconds} mp`;
+        }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = [
+                "images/hatter1.jpg", 
+                "images/hatter2.jpg", 
+                "images/hatter3.jpg", 
+                "images/hatter4.jpg"
+            ];
+            let currentImageIndex = 0;
+            let xPos = 0;
+            const bg1 = document.getElementById("bg1");
+            const bg2 = document.getElementById("bg2");
+            let activeBackground = bg1;
+            let inactiveBackground = bg2;
+        
+            // Képek előtöltése a gyorsabb betöltés érdekében
+            images.forEach(image => {
+                const img = new Image();
+                img.src = image;
+            });
+
+            // Kezdeti háttérkép beállítása
+            activeBackground.style.backgroundImage = `url(${images[currentImageIndex]})`;
+            activeBackground.classList.add('active');
+        
+            function animateBackground() {
+                // Sebesség csökkentése, hogy lassabban mozogjon a háttér.
+                xPos -= 0.1;
+                activeBackground.style.backgroundPosition = `${xPos}px 0`;
+        
+                // Ha az aktív háttérkép majdnem elhagyta a képernyőt, váltunk
+                // A 200px egy jó távolság a sima átmenethez telefonon is.
+                if (Math.abs(xPos) >= window.innerWidth - 200) {
+                    // Képek cseréje
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    inactiveBackground.style.backgroundImage = `url(${images[currentImageIndex]})`;
+                    
+                    // Aktív és inaktív képek cseréje
+                    activeBackground.classList.remove('active');
+                    inactiveBackground.classList.add('active');
+                    
+                    // A váltás után megcseréljük a referenciákat
+                    const temp = activeBackground;
+                    activeBackground = inactiveBackground;
+                    inactiveBackground = temp;
+
+                    // A pozíciót visszaállítjuk, hogy az új kép a helyére kerüljön.
+                    xPos = 0;
+                }
+        
+                requestAnimationFrame(animateBackground);
+            }
+        
+            // Az animáció indítása a DOM betöltése után
+            animateBackground();
+        });
+    </script>
 </body>
 </html>
