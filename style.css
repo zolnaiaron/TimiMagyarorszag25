@@ -60,7 +60,7 @@
   font-size: 1.2rem;
   text-decoration: none;
   color: #fff;
-  background: rgba(0,0,0,0.6); /* sötét háttér a linknek */
+  background: rgba(0, 0, 0, 0.486); /* sötét háttér a linknek */
   padding: 12px 25px;
   border-radius: 12px;
   transition: all 0.3s ease;
