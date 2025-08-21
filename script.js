@@ -5,7 +5,7 @@ const background = document.querySelector(".background");
 let xPos = 0;
 
 function animateBackground() {
-  xPos -= 1; // mozgás jobbról balra
+  xPos -= 0.2; // mozgás jobbról balra
 
   // beállítjuk a background pozíciót
   background.style.backgroundPosition = `${xPos}px 0`;
