@@ -1,4 +1,4 @@
-const images = ["hatter1.jpg", "hatter2.jpg", "hatter3.jpg"];
+const images = ["hatter1.jpg", "hatter2.jpg", "hatter3.jpg", "hatter4.jpg"];
 let currentImage = 0;
 
 const background = document.querySelector(".background");
