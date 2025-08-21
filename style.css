@@ -1,105 +1,89 @@
 /* Háttér */
 .background {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("images/hatter.jpg") no-repeat center center;
-  background-size: cover;
-  animation: zoomBackground 20s ease-in-out infinite;
-  z-index: -2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* A háttérkép és animáció innentől a script.js-ből jön */
 }
 
 /* Sötét overlay a jobb kontrasztért */
 .overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.452); /* félátlátszó fekete */
-  z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* félátlátszó fekete */
+    z-index: 1;
 }
 
 /* Tartalom */
 .content {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #fff; /* fehér szöveg */
-  padding: 15px;
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff; /* fehér szöveg */
+    padding: 20px;
 }
 
 .content h1 {
-  margin-bottom: 0 0 30px 0;
-  font-size: 1.8rem;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 }
 
 /* Lista */
 .content ul {
-  list-style: none;
+    list-style: none;
 }
 
 .content li {
-  margin: 15px 0;
+    margin: 15px 0;
 }
 
 .content li.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.countdown {
-  font-size: 3rem;             /* nagy számok */
-  color: rgba(255, 255, 255, 0.8); /* áttetsző fehér */
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5); /* jobban olvasható */
-  background: rgba(0,0,0,0.3); /* halvány háttér a kontraszthoz */
-  padding: 15px 30px;
-  border-radius: 15px;
-  margin-top: 20px;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Linkek */
 .content a {
-  display: inline-block;
-  font-size: 1.2rem;
-  text-decoration: none;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.486); /* sötét háttér a linknek */
-  padding: 12px 25px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.486); /* sötét háttér a linknek */
+    padding: 12px 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
 .content a:hover {
-  background: rgba(0,0,0,0.8);
-  transform: scale(1.05);
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.05);
 }
 
 .content a:active {
-  transform: scale(0.95);
-  background: rgba(0,0,0,0.9);
+    transform: scale(0.95);
+    background: rgba(0,0,0,0.9);
 }
 
 /* Mobil optimalizálás */
 @media (max-width: 480px) {
-  .content {
-    justify-content: flex-start; /* felül kezdődik a szöveg */
-    padding: 20px 10px;          /* jobbra-balra kisebb padding */
-  }
+    .content h1 {
+        font-size: 1.5rem;
+    }
 
-  .content h1 {
-    margin-top: 40px;  /* feljebb tolás */
-    font-size: 1.5rem;
-  }
-
-  .content a {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
+    .content a {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
 }
